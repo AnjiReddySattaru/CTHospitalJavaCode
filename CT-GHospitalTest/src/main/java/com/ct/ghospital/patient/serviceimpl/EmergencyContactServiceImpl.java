@@ -1,5 +1,6 @@
 package com.ct.ghospital.patient.serviceimpl;
 
+import com.ct.ghospital.patient.exception.EmergencyContactException;
 import com.ct.ghospital.patient.model.EmergencyContact;
 import com.ct.ghospital.patient.repo.EmergencyContactRepo;
 import com.ct.ghospital.patient.service.EmergencyContactService;
@@ -21,12 +22,12 @@ public class EmergencyContactServiceImpl implements EmergencyContactService {
     }
 
     @Override
-    public EmergencyContact getEmergencyContactDetails(Integer emergencyid) throws Exception {
+    public EmergencyContact getEmergencyContactDetails(Integer emergencyid) {
         Optional<EmergencyContact> emergencyContact = emergencyContactRepo.findById(emergencyid);
         if (emergencyContact.isPresent()) {
             return emergencyContact.get();
         } else {
-            throw new Exception("Emergency Contact is Not Found");
+            throw new EmergencyContactException("Emergency Contact With Id" + emergencyid + "is Not Found");
         }
     }
 
@@ -36,20 +37,24 @@ public class EmergencyContactServiceImpl implements EmergencyContactService {
     }
 
     @Override
-    public EmergencyContact updateEmergencyContact(Integer emergencyid, EmergencyContact emergencyContact) throws Exception {
+    public EmergencyContact updateEmergencyContact(Integer emergencyid, EmergencyContact emergencyContact) {
         EmergencyContact pEmergencyContact = getEmergencyContactDetails(emergencyid);
-        pEmergencyContact.setFirstName(emergencyContact.getFirstName());
-        pEmergencyContact.setLastName(emergencyContact.getLastName());
-        pEmergencyContact.setEmail(emergencyContact.getEmail());
-        pEmergencyContact.setAddress(emergencyContact.getAddress());
-        pEmergencyContact.setRelationship(emergencyContact.getRelationship());
-        pEmergencyContact.setPhoneNumber(emergencyContact.getPhoneNumber());
-        pEmergencyContact.setAccessToPortal(emergencyContact.getAccessToPortal());
-        return emergencyContactRepo.save(pEmergencyContact);
+        try {
+            pEmergencyContact.setFirstName(emergencyContact.getFirstName());
+            pEmergencyContact.setLastName(emergencyContact.getLastName());
+            pEmergencyContact.setEmail(emergencyContact.getEmail());
+            pEmergencyContact.setAddress(emergencyContact.getAddress());
+            pEmergencyContact.setRelationship(emergencyContact.getRelationship());
+            pEmergencyContact.setPhoneNumber(emergencyContact.getPhoneNumber());
+            pEmergencyContact.setAccessToPortal(emergencyContact.getAccessToPortal());
+            return emergencyContactRepo.save(pEmergencyContact);
+        } catch (EmergencyContactException ex) {
+            throw new EmergencyContactException(ex.getMessage());
+        }
     }
 
     @Override
-    public void deleteEmergencyContact(Integer emergencyid) throws Exception {
+    public void deleteEmergencyContact(Integer emergencyid) {
         EmergencyContact emergencyContact = getEmergencyContactDetails(emergencyid);
         emergencyContactRepo.delete(emergencyContact);
     }

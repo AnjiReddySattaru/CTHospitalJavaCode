@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
@@ -19,16 +21,19 @@ import javax.persistence.Table;
 public class AllergicDetails {
 
     @Id
-    @Column(name = "allergyId")
+    @Column(name = "allergyId", nullable = false, unique = true)
+    @NotEmpty(message = "This field cannot be empty")
     private Integer allergyId;
-    @Column
+    @Column(nullable = false)
+    @NotEmpty(message = "This field cannot be empty")
     private String allergyType;
-    @Column
+    @Column(nullable = false)
+    @NotEmpty(message = "This field cannot be empty")
     private String allergyName;
-    @Column
+    @Column(nullable = false)
+    @NotEmpty(message = "This field cannot be empty")
     private String allergyDescription;
-    @Column
+    @Column(nullable = false)
+    @NotEmpty(message = "This field cannot be empty")
     private String allergyClinicalInformation;
-//	private boolean fatal;
-
 }

@@ -1,5 +1,6 @@
 package com.ct.ghospital.patient.serviceimpl;
 
+import com.ct.ghospital.patient.exception.DiagnosisDetailsException;
 import com.ct.ghospital.patient.model.DiagnosisDetails;
 import com.ct.ghospital.patient.repo.DiagnosisDetailsRepo;
 import com.ct.ghospital.patient.service.DiagnosisDetailsService;
@@ -22,12 +23,12 @@ public class DiagnosisDetailsServiceImpl implements DiagnosisDetailsService {
     }
 
     @Override
-    public DiagnosisDetails getDiagnosisDetails(Integer diagnosisid) throws Exception {
+    public DiagnosisDetails getDiagnosisDetails(Integer diagnosisid) throws DiagnosisDetailsException {
         Optional<DiagnosisDetails> diagnosisDetailsOptional = diagnosisDetailsRepo.findById(diagnosisid);
         if (diagnosisDetailsOptional.isPresent()) {
             return diagnosisDetailsOptional.get();
         } else {
-            throw new Exception("Diagnosis is not Present");
+            throw new DiagnosisDetailsException("Diagnosis With Id " + diagnosisid + " not Present");
         }
     }
 
@@ -37,16 +38,20 @@ public class DiagnosisDetailsServiceImpl implements DiagnosisDetailsService {
     }
 
     @Override
-    public DiagnosisDetails updateDiagnosisDetails(Integer diagnosisid, DiagnosisDetails diagnosisDetails) throws Exception {
-        DiagnosisDetails pDiagnosisDetails = getDiagnosisDetails(diagnosisid);
-        pDiagnosisDetails.setDiagnosisIsDeprecated(diagnosisDetails.getDiagnosisIsDeprecated());
-        pDiagnosisDetails.setDiagnosisCode(diagnosisDetails.getDiagnosisCode());
-        pDiagnosisDetails.setDiagnosisDescription(diagnosisDetails.getDiagnosisDescription());
-        return diagnosisDetailsRepo.save(pDiagnosisDetails);
+    public DiagnosisDetails updateDiagnosisDetails(Integer diagnosisid, DiagnosisDetails diagnosisDetails) {
+        try {
+            DiagnosisDetails pDiagnosisDetails = getDiagnosisDetails(diagnosisid);
+            pDiagnosisDetails.setDiagnosisIsDeprecated(diagnosisDetails.getDiagnosisIsDeprecated());
+            pDiagnosisDetails.setDiagnosisCode(diagnosisDetails.getDiagnosisCode());
+            pDiagnosisDetails.setDiagnosisDescription(diagnosisDetails.getDiagnosisDescription());
+            return diagnosisDetailsRepo.save(pDiagnosisDetails);
+        } catch (DiagnosisDetailsException ex) {
+            throw new DiagnosisDetailsException(ex.getMessage());
+        }
     }
 
     @Override
-    public void deleteDiagnosisDetails(Integer diagnosisid) throws Exception {
+    public void deleteDiagnosisDetails(Integer diagnosisid) {
         DiagnosisDetails diagnosisDetails = getDiagnosisDetails(diagnosisid);
         diagnosisDetailsRepo.delete(diagnosisDetails);
     }

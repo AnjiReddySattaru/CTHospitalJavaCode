@@ -1,5 +1,6 @@
 package com.ct.ghospital.patient.serviceimpl;
 
+import com.ct.ghospital.patient.exception.MedicationDetailsException;
 import com.ct.ghospital.patient.model.MedicationDetails;
 import com.ct.ghospital.patient.repo.MedicationDetailsRepo;
 import com.ct.ghospital.patient.service.MedicationDetailsService;
@@ -22,12 +23,12 @@ public class MedicationDetailsServiceImpl implements MedicationDetailsService {
     }
 
     @Override
-    public MedicationDetails getMedicationDetails(Integer medicationId) throws Exception {
+    public MedicationDetails getMedicationDetails(Integer medicationId) {
         Optional<MedicationDetails> medicationDetailsOptional = medicationDetailsRepo.findById(medicationId);
         if (medicationDetailsOptional.isPresent()) {
             return medicationDetailsOptional.get();
         } else {
-            throw new Exception("Medication is not present");
+            throw new MedicationDetailsException("Medication with Id " + medicationId + " is not present");
         }
     }
 
@@ -37,7 +38,7 @@ public class MedicationDetailsServiceImpl implements MedicationDetailsService {
     }
 
     @Override
-    public MedicationDetails updateMedicationDetails(Integer medicationId, MedicationDetails medicationDetails) throws Exception {
+    public MedicationDetails updateMedicationDetails(Integer medicationId, MedicationDetails medicationDetails) {
         MedicationDetails pMedicationDetails = getMedicationDetails(medicationId);
         pMedicationDetails.setMedicationCode(medicationDetails.getMedicationCode());
         pMedicationDetails.setMedicationName(medicationDetails.getMedicationName());
@@ -46,7 +47,7 @@ public class MedicationDetailsServiceImpl implements MedicationDetailsService {
     }
 
     @Override
-    public void deleteMedication(Integer medicationId) throws Exception {
+    public void deleteMedication(Integer medicationId) {
         MedicationDetails medicationDetails = getMedicationDetails(medicationId);
         medicationDetailsRepo.delete(medicationDetails);
     }

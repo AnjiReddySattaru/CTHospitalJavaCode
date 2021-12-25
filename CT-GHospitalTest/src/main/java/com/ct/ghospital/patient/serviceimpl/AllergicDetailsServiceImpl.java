@@ -1,5 +1,6 @@
 package com.ct.ghospital.patient.serviceimpl;
 
+import com.ct.ghospital.patient.exception.AllergyDetailsException;
 import com.ct.ghospital.patient.model.AllergicDetails;
 import com.ct.ghospital.patient.repo.AllergicDetailsRepo;
 import com.ct.ghospital.patient.service.AllergicDetailsService;
@@ -22,12 +23,12 @@ public class AllergicDetailsServiceImpl implements AllergicDetailsService {
     }
 
     @Override
-    public AllergicDetails getAllergicDetails(Integer id) throws Exception {
+    public AllergicDetails getAllergicDetails(Integer id) throws AllergyDetailsException {
         Optional<AllergicDetails> allergicDetailsOptional = allergicDetailsRepo.findById(id);
         if (allergicDetailsOptional.isPresent()) {
             return allergicDetailsOptional.get();
         } else {
-            throw new Exception("Allergic Details is not present");
+            throw new AllergyDetailsException("Allergic with Id " + id + "is not present");
         }
     }
 
@@ -37,18 +38,22 @@ public class AllergicDetailsServiceImpl implements AllergicDetailsService {
     }
 
     @Override
-    public AllergicDetails updateAllergicDetails(Integer id, AllergicDetails allergicDetails) throws Exception {
+    public AllergicDetails updateAllergicDetails(Integer id, AllergicDetails allergicDetails) {
         AllergicDetails pAllergicDetails = getAllergicDetails(id);
-        pAllergicDetails.setAllergyType(allergicDetails.getAllergyType());
-        pAllergicDetails.setAllergyName(allergicDetails.getAllergyName());
-        pAllergicDetails.setAllergyDescription(allergicDetails.getAllergyDescription());
-        pAllergicDetails.setAllergyClinicalInformation(allergicDetails.getAllergyClinicalInformation());
-        allergicDetailsRepo.save(pAllergicDetails);
-        return pAllergicDetails;
+        try {
+            pAllergicDetails.setAllergyType(allergicDetails.getAllergyType());
+            pAllergicDetails.setAllergyName(allergicDetails.getAllergyName());
+            pAllergicDetails.setAllergyDescription(allergicDetails.getAllergyDescription());
+            pAllergicDetails.setAllergyClinicalInformation(allergicDetails.getAllergyClinicalInformation());
+            allergicDetailsRepo.save(pAllergicDetails);
+            return pAllergicDetails;
+        } catch (AllergyDetailsException ex) {
+            throw new AllergyDetailsException(ex.getMessage());
+        }
     }
 
     @Override
-    public void deleteAllergicDetails(Integer id) throws Exception {
+    public void deleteAllergicDetails(Integer id) {
         AllergicDetails allergicDetails = getAllergicDetails(id);
         allergicDetailsRepo.delete(allergicDetails);
     }

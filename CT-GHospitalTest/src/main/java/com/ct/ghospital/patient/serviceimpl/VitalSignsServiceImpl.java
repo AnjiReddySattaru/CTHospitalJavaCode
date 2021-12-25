@@ -1,5 +1,6 @@
 package com.ct.ghospital.patient.serviceimpl;
 
+import com.ct.ghospital.patient.exception.VitalSignsException;
 import com.ct.ghospital.patient.model.VitalSigns;
 import com.ct.ghospital.patient.repo.VitalSignsRepo;
 import com.ct.ghospital.patient.service.VitalSignsService;
@@ -22,12 +23,12 @@ public class VitalSignsServiceImpl implements VitalSignsService {
     }
 
     @Override
-    public VitalSigns getVitalSignsDetails(Integer vitalsignsid) throws Exception {
+    public VitalSigns getVitalSignsDetails(Integer vitalsignsid) {
         Optional<VitalSigns> vitalSignsOptional = vitalSignsRepo.findById(vitalsignsid);
         if (vitalSignsOptional.isPresent()) {
             return vitalSignsOptional.get();
         } else {
-            throw new Exception("Vital Signs is not present");
+            throw new VitalSignsException("Vital Signs With Id" + vitalsignsid + " is not present");
         }
     }
 
@@ -37,7 +38,7 @@ public class VitalSignsServiceImpl implements VitalSignsService {
     }
 
     @Override
-    public VitalSigns updateVitalSignsDetails(Integer vitalsignsid, VitalSigns vitalSigns) throws Exception {
+    public VitalSigns updateVitalSignsDetails(Integer vitalsignsid, VitalSigns vitalSigns) {
         VitalSigns pvitalSigns = getVitalSignsDetails(vitalsignsid);
         pvitalSigns.setHeight(vitalSigns.getHeight());
         pvitalSigns.setWeight(vitalSigns.getWeight());
@@ -49,7 +50,7 @@ public class VitalSignsServiceImpl implements VitalSignsService {
     }
 
     @Override
-    public void deleteVitalSigns(Integer vitalsignsid) throws Exception {
+    public void deleteVitalSigns(Integer vitalsignsid) {
         VitalSigns vitalSigns = getVitalSignsDetails(vitalsignsid);
         vitalSignsRepo.delete(vitalSigns);
     }

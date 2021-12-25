@@ -1,8 +1,10 @@
 package com.ct.ghospital.patient.controller;
 
+import com.ct.ghospital.patient.exception.ProcedureDetailsException;
 import com.ct.ghospital.patient.model.ProceduresDetails;
-import com.ct.ghospital.patient.serviceimpl.ProcedureDetailsServiceImpl;
+import com.ct.ghospital.patient.service.ProcedureDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,30 +13,34 @@ import java.util.List;
 public class ProcedureDetailsController {
 
     @Autowired
-    private ProcedureDetailsServiceImpl procedureDetailsServiceImpl;
+    private ProcedureDetailsService procedureDetailsService;
 
     @GetMapping("/procedure")
-    private List<ProceduresDetails> getAllProceduresDetails() {
-        return procedureDetailsServiceImpl.getAllProcedureDetails();
+    public List<ProceduresDetails> getAllProceduresDetails() {
+        return procedureDetailsService.getAllProcedureDetails();
     }
 
     @GetMapping("/procedure/{procedureid}")
-    private ProceduresDetails getProcedureDetails(@PathVariable("procedureid") Integer procedureid) throws Exception {
-        return procedureDetailsServiceImpl.getProcedureDetails(procedureid);
+    public ResponseEntity<ProceduresDetails> getProcedureDetails(@PathVariable("procedureid") Integer procedureid) {
+        try {
+            return ResponseEntity.ok(procedureDetailsService.getProcedureDetails(procedureid));
+        } catch (ProcedureDetailsException ex) {
+            throw new ProcedureDetailsException(ex.getMessage());
+        }
     }
 
     @PostMapping("procedure")
-    private ProceduresDetails saveProcedureDetails(@RequestBody ProceduresDetails proceduresDetails) {
-        return procedureDetailsServiceImpl.saveProcedureDetails(proceduresDetails);
+    public ProceduresDetails saveProcedureDetails(@RequestBody ProceduresDetails proceduresDetails) {
+        return procedureDetailsService.saveProcedureDetails(proceduresDetails);
     }
 
     @PutMapping("/procedure/{procedureid}")
-    private ProceduresDetails updateProcedureDetails(@PathVariable("procedureid") Integer procedureid, @RequestBody ProceduresDetails proceduresDetails) throws Exception {
-        return procedureDetailsServiceImpl.updateProcedureDetails(procedureid, proceduresDetails);
+    public ProceduresDetails updateProcedureDetails(@PathVariable("procedureid") Integer procedureid, @RequestBody ProceduresDetails proceduresDetails) {
+        return procedureDetailsService.updateProcedureDetails(procedureid, proceduresDetails);
     }
 
     @DeleteMapping("/procedure/{procedureid}")
-    private void deleteProcedureDetails(@PathVariable("procedureid") Integer procedureid) throws Exception {
-        procedureDetailsServiceImpl.deleteProcedureDetails(procedureid);
+    public void deleteProcedureDetails(@PathVariable("procedureid") Integer procedureid) {
+        procedureDetailsService.deleteProcedureDetails(procedureid);
     }
 }

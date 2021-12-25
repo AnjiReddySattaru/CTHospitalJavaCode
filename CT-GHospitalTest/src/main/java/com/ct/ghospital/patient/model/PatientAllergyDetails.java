@@ -14,17 +14,18 @@ import javax.persistence.*;
 public class PatientAllergyDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "patientAllergyId")
     private Integer patientAllergyId;
-    @Column
+    @Column(nullable = false)
     private Character status;
     @Column
-    private Character fatal;
+    private Boolean fatal;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "patient_id", referencedColumnName = "patientId")
     private Patient patient;
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "allergyId", referencedColumnName = "allergyId")
     private AllergicDetails allergicDetails;
 
 }

@@ -1,8 +1,10 @@
 package com.ct.ghospital.patient.controller;
 
+import com.ct.ghospital.patient.exception.MedicationDetailsException;
 import com.ct.ghospital.patient.model.MedicationDetails;
-import com.ct.ghospital.patient.serviceimpl.MedicationDetailsServiceImpl;
+import com.ct.ghospital.patient.service.MedicationDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,30 +13,34 @@ import java.util.List;
 public class MedicationDetailsController {
 
     @Autowired
-    private MedicationDetailsServiceImpl medicationDetailsServiceImpl;
+    private MedicationDetailsService medicationDetailsService;
 
     @GetMapping("/medication")
-    private List<MedicationDetails> getAllMedicationDetails() {
-        return medicationDetailsServiceImpl.getAllMedicationDetails();
+    public List<MedicationDetails> getAllMedicationDetails() {
+        return medicationDetailsService.getAllMedicationDetails();
     }
 
     @GetMapping("/medication/{medicationid}")
-    private MedicationDetails getMedicationDetails(@PathVariable("medicationid") Integer medicationid) throws Exception {
-        return medicationDetailsServiceImpl.getMedicationDetails(medicationid);
+    public ResponseEntity<MedicationDetails> getMedicationDetails(@PathVariable("medicationid") Integer medicationid) {
+        try {
+            return ResponseEntity.ok(medicationDetailsService.getMedicationDetails(medicationid));
+        } catch (MedicationDetailsException ex) {
+            throw new MedicationDetailsException(ex.getMessage());
+        }
     }
 
     @PostMapping("/medication")
-    private MedicationDetails saveMedicationDetails(@RequestBody MedicationDetails medicationDetails) {
-        return medicationDetailsServiceImpl.saveMedicationDetails(medicationDetails);
+    public MedicationDetails saveMedicationDetails(@RequestBody MedicationDetails medicationDetails) {
+        return medicationDetailsService.saveMedicationDetails(medicationDetails);
     }
 
     @PutMapping("/medication/medicationid")
-    private MedicationDetails updateMedicationDetails(@PathVariable("medicationid") Integer medicationid, MedicationDetails medicationDetails) throws Exception {
-        return medicationDetailsServiceImpl.updateMedicationDetails(medicationid, medicationDetails);
+    public MedicationDetails updateMedicationDetails(@PathVariable("medicationid") Integer medicationid, MedicationDetails medicationDetails) {
+        return medicationDetailsService.updateMedicationDetails(medicationid, medicationDetails);
     }
 
     @DeleteMapping("/medication/medicationid")
-    private void deleteMedication(@PathVariable("medicationid") Integer medicationid) throws Exception {
-        medicationDetailsServiceImpl.deleteMedication(medicationid);
+    public void deleteMedication(@PathVariable("medicationid") Integer medicationid) {
+        medicationDetailsService.deleteMedication(medicationid);
     }
 }

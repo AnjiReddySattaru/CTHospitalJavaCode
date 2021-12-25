@@ -1,8 +1,10 @@
 package com.ct.ghospital.patient.controller;
 
+import com.ct.ghospital.patient.exception.VitalSignsException;
 import com.ct.ghospital.patient.model.VitalSigns;
-import com.ct.ghospital.patient.serviceimpl.VitalSignsServiceImpl;
+import com.ct.ghospital.patient.service.VitalSignsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,30 +13,34 @@ import java.util.List;
 public class VitalSignsController {
 
     @Autowired
-    private VitalSignsServiceImpl vitalSignsServiceImpl;
+    private VitalSignsService vitalSignsService;
 
     @GetMapping("/vitalsigns")
-    private List<VitalSigns> getAllVitalSigns() {
-        return vitalSignsServiceImpl.getAllVitalSignsDetails();
+    public List<VitalSigns> getAllVitalSigns() {
+        return vitalSignsService.getAllVitalSignsDetails();
     }
 
     @GetMapping("/vitalsigns/{vitalsignsid}")
-    private VitalSigns getVitalSigns(@PathVariable("vitalsignsid") Integer vitalsignsid) throws Exception {
-        return vitalSignsServiceImpl.getVitalSignsDetails(vitalsignsid);
+    public ResponseEntity<VitalSigns> getVitalSigns(@PathVariable("vitalsignsid") Integer vitalsignsid) {
+        try {
+            return ResponseEntity.ok(vitalSignsService.getVitalSignsDetails(vitalsignsid));
+        } catch (VitalSignsException ex) {
+            throw new VitalSignsException(ex.getMessage());
+        }
     }
 
     @PostMapping("/vitalsigns")
-    private VitalSigns saveVitalSigns(@RequestBody VitalSigns vitalsigns) {
-        return vitalSignsServiceImpl.saveVitalSignsDetails(vitalsigns);
+    public VitalSigns saveVitalSigns(@RequestBody VitalSigns vitalsigns) {
+        return vitalSignsService.saveVitalSignsDetails(vitalsigns);
     }
 
     @PutMapping("/vitalsigns/{vitalsignsid}")
-    private VitalSigns updateVitalSigns(@PathVariable("vitalsignsid") Integer vitalsignsid, @RequestBody VitalSigns vitalSigns) throws Exception {
-        return vitalSignsServiceImpl.updateVitalSignsDetails(vitalsignsid, vitalSigns);
+    public VitalSigns updateVitalSigns(@PathVariable("vitalsignsid") Integer vitalsignsid, @RequestBody VitalSigns vitalSigns) {
+        return vitalSignsService.updateVitalSignsDetails(vitalsignsid, vitalSigns);
     }
 
     @DeleteMapping("/vitalsigns/{vitalsignsid}")
-    private void deleteVitalSigns(@PathVariable("vitalsignsid") Integer vitalsignsid) throws Exception {
-        vitalSignsServiceImpl.deleteVitalSigns(vitalsignsid);
+    public void deleteVitalSigns(@PathVariable("vitalsignsid") Integer vitalsignsid) {
+        vitalSignsService.deleteVitalSigns(vitalsignsid);
     }
 }

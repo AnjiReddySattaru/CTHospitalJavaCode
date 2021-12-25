@@ -1,5 +1,6 @@
 package com.ct.ghospital.patient.serviceimpl;
 
+import com.ct.ghospital.patient.exception.PatientAllergicDetailsException;
 import com.ct.ghospital.patient.model.PatientAllergyDetails;
 import com.ct.ghospital.patient.repo.PatientAllergicDetailsRepo;
 import com.ct.ghospital.patient.service.PatientAllergicDetailsService;
@@ -22,12 +23,12 @@ public class PatientAllergicDetailsServiceImpl implements PatientAllergicDetails
     }
 
     @Override
-    public PatientAllergyDetails getPatientAllergicDetails(Integer patientallergicid) throws Exception {
+    public PatientAllergyDetails getPatientAllergicDetails(Integer patientallergicid) {
         Optional<PatientAllergyDetails> patientAllergyDetailsOptional = patientAllergicDetailsRepo.findById(patientallergicid);
         if (patientAllergyDetailsOptional.isPresent()) {
             return patientAllergyDetailsOptional.get();
         } else {
-            throw new Exception("Patient Allergic Details is not available");
+            throw new PatientAllergicDetailsException("Patient Allergic Details With Id " + patientallergicid + " is not available");
         }
     }
 
@@ -37,7 +38,7 @@ public class PatientAllergicDetailsServiceImpl implements PatientAllergicDetails
     }
 
     @Override
-    public PatientAllergyDetails updatePatientAllergicDetails(Integer patientallergicid, PatientAllergyDetails patientAllergyDetails) throws Exception {
+    public PatientAllergyDetails updatePatientAllergicDetails(Integer patientallergicid, PatientAllergyDetails patientAllergyDetails) {
         PatientAllergyDetails pPatientAllergyDetails = getPatientAllergicDetails(patientallergicid);
         pPatientAllergyDetails.setStatus(patientAllergyDetails.getStatus());
         pPatientAllergyDetails.setFatal(patientAllergyDetails.getFatal());
@@ -47,7 +48,7 @@ public class PatientAllergicDetailsServiceImpl implements PatientAllergicDetails
     }
 
     @Override
-    public void deletePatientAllergicDetails(Integer patientallergicid) throws Exception {
+    public void deletePatientAllergicDetails(Integer patientallergicid) {
         PatientAllergyDetails patientAllergyDetails = getPatientAllergicDetails(patientallergicid);
         patientAllergicDetailsRepo.delete(patientAllergyDetails);
     }

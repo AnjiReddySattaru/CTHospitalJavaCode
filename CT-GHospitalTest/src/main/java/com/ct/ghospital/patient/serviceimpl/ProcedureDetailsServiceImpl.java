@@ -1,5 +1,6 @@
 package com.ct.ghospital.patient.serviceimpl;
 
+import com.ct.ghospital.patient.exception.ProcedureDetailsException;
 import com.ct.ghospital.patient.model.ProceduresDetails;
 import com.ct.ghospital.patient.repo.ProcedureDetailsRepo;
 import com.ct.ghospital.patient.service.ProcedureDetailsService;
@@ -22,12 +23,12 @@ public class ProcedureDetailsServiceImpl implements ProcedureDetailsService {
     }
 
     @Override
-    public ProceduresDetails getProcedureDetails(Integer id) throws Exception {
+    public ProceduresDetails getProcedureDetails(Integer id) {
         Optional<ProceduresDetails> proceduresDetailsOptional = procedureDetailsRepo.findById(id);
         if (proceduresDetailsOptional.isPresent()) {
             return proceduresDetailsOptional.get();
         } else {
-            throw new Exception("Procedure is not present");
+            throw new ProcedureDetailsException("Procedure with " + id + " is not present");
         }
     }
 
@@ -37,7 +38,7 @@ public class ProcedureDetailsServiceImpl implements ProcedureDetailsService {
     }
 
     @Override
-    public ProceduresDetails updateProcedureDetails(Integer id, ProceduresDetails proceduresDetails) throws Exception {
+    public ProceduresDetails updateProcedureDetails(Integer id, ProceduresDetails proceduresDetails) {
         ProceduresDetails pProceduresDetails = getProcedureDetails(id);
         pProceduresDetails.setProceduresCode(proceduresDetails.getProceduresCode());
         pProceduresDetails.setProceduresName(proceduresDetails.getProceduresName());
@@ -46,7 +47,7 @@ public class ProcedureDetailsServiceImpl implements ProcedureDetailsService {
     }
 
     @Override
-    public void deleteProcedureDetails(Integer id) throws Exception {
+    public void deleteProcedureDetails(Integer id) {
         ProceduresDetails proceduresDetails = getProcedureDetails(id);
         procedureDetailsRepo.delete(proceduresDetails);
     }

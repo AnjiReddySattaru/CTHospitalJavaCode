@@ -1,8 +1,10 @@
 package com.ct.ghospital.patient.controller;
 
+import com.ct.ghospital.patient.exception.AddressException;
 import com.ct.ghospital.patient.model.Address;
-import com.ct.ghospital.patient.serviceimpl.AddressServiceImpl;
+import com.ct.ghospital.patient.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,11 +12,8 @@ import java.util.List;
 @RestController
 public class AddressController {
     @Autowired
-    private final AddressServiceImpl addressService;
+    private AddressService addressService;
 
-    public AddressController(AddressServiceImpl addressService) {
-        this.addressService = addressService;
-    }
 
     @GetMapping("/address")
     public List<Address> getAllAddressDetails() {
@@ -22,8 +21,12 @@ public class AddressController {
     }
 
     @GetMapping("/address/{addressid}")
-    public Address getAddress(@PathVariable("addressid") Integer id) throws Exception {
-        return addressService.getAddressDetails(id);
+    public ResponseEntity<Address> getAddress(@PathVariable("addressid") Integer addressid) {
+        try {
+            return ResponseEntity.ok(addressService.getAddressDetails(addressid));
+        } catch (AddressException ex) {
+            throw new AddressException(ex.getMessage());
+        }
     }
 
     @PostMapping("/address")
@@ -32,12 +35,12 @@ public class AddressController {
     }
 
     @PutMapping("/address/{addressid}")
-    public Address updateAddress(@PathVariable("addressid") Integer id, @RequestBody Address address) throws Exception {
+    public Address updateAddress(@PathVariable("addressid") Integer id, @RequestBody Address address) {
         return addressService.updateAddress(id, address);
     }
 
     @DeleteMapping("/address/{addressid}")
-    public void deleteAddress(@PathVariable("addressid") Integer id) throws Exception {
+    public void deleteAddress(@PathVariable("addressid") Integer id) {
         addressService.deleteAddress(id);
     }
 }

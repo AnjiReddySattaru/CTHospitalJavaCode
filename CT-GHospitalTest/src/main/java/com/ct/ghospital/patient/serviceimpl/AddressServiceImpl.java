@@ -1,5 +1,6 @@
 package com.ct.ghospital.patient.serviceimpl;
 
+import com.ct.ghospital.patient.exception.AddressException;
 import com.ct.ghospital.patient.model.Address;
 import com.ct.ghospital.patient.repo.AddressRepo;
 import com.ct.ghospital.patient.service.AddressService;
@@ -22,12 +23,12 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address getAddressDetails(Integer addressId) throws Exception {
+    public Address getAddressDetails(Integer addressId) {
         Optional<Address> address = addressRepo.findById(addressId);
         if (address.isPresent()) {
             return address.get();
         } else {
-            throw new Exception("Address is not available");
+            throw new AddressException("Address with id " + addressId + " is not Present");
         }
     }
 
@@ -37,20 +38,23 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address updateAddress(Integer allergicid, Address address) throws Exception {
+    public Address updateAddress(Integer allergicid, Address address) {
         Address pAddress = getAddressDetails(allergicid);
-        pAddress.setHomeAddress(address.getHomeAddress());
-        pAddress.setCountry(address.getCountry());
-        pAddress.setState(address.getState());
-        pAddress.setPostalCode(address.getPostalCode());
-        pAddress.setPhoneNumber(address.getPhoneNumber());
-        return addressRepo.save(pAddress);
+        try {
+            pAddress.setHomeAddress(address.getHomeAddress());
+            pAddress.setCountry(address.getCountry());
+            pAddress.setState(address.getState());
+            pAddress.setPostalCode(address.getPostalCode());
+            pAddress.setPhoneNumber(address.getPhoneNumber());
+            return addressRepo.save(pAddress);
+        } catch (AddressException addressException) {
+            throw new AddressException(addressException.getMessage());
+        }
     }
 
     @Override
-    public void deleteAddress(Integer allergicid) throws Exception {
+    public void deleteAddress(Integer allergicid) {
         Address address = getAddressDetails(allergicid);
         addressRepo.delete(address);
-
     }
 }

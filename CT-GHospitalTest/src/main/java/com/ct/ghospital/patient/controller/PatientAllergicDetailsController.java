@@ -1,8 +1,10 @@
 package com.ct.ghospital.patient.controller;
 
+import com.ct.ghospital.patient.exception.PatientAllergicDetailsException;
 import com.ct.ghospital.patient.model.PatientAllergyDetails;
-import com.ct.ghospital.patient.serviceimpl.PatientAllergicDetailsServiceImpl;
+import com.ct.ghospital.patient.service.PatientAllergicDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,30 +12,34 @@ import java.util.List;
 @RestController
 public class PatientAllergicDetailsController {
     @Autowired
-    private PatientAllergicDetailsServiceImpl patientAllergicDetailsServiceImpl;
+    private PatientAllergicDetailsService patientAllergicDetailsService;
 
     @GetMapping("/patientallergic")
-    private List<PatientAllergyDetails> getAllPatientAllergicDetails() {
-        return patientAllergicDetailsServiceImpl.getAllPatientAllergicDetails();
+    public List<PatientAllergyDetails> getAllPatientAllergicDetails() {
+        return patientAllergicDetailsService.getAllPatientAllergicDetails();
     }
 
     @GetMapping("/patientallergic/{patientallergicid}")
-    private PatientAllergyDetails getPatientAllergicDetails(@PathVariable("patientallergicid") Integer patientallergicid) throws Exception {
-        return patientAllergicDetailsServiceImpl.getPatientAllergicDetails(patientallergicid);
+    public ResponseEntity<PatientAllergyDetails> getPatientAllergicDetails(@PathVariable("patientallergicid") Integer patientallergicid) {
+        try {
+            return ResponseEntity.ok(patientAllergicDetailsService.getPatientAllergicDetails(patientallergicid));
+        } catch (PatientAllergicDetailsException ex) {
+            throw new PatientAllergicDetailsException(ex.getMessage());
+        }
     }
 
     @PostMapping("/patientallergic")
-    private PatientAllergyDetails savePatientAllergicDetails(@RequestBody PatientAllergyDetails patientAllergyDetails) {
-        return patientAllergicDetailsServiceImpl.savePatientAllergicDetails(patientAllergyDetails);
+    public PatientAllergyDetails savePatientAllergicDetails(@RequestBody PatientAllergyDetails patientAllergyDetails) {
+        return patientAllergicDetailsService.savePatientAllergicDetails(patientAllergyDetails);
     }
 
     @PutMapping("/patientallergic/{patientallergicid}")
-    private PatientAllergyDetails updatePatientAllergicDetails(@PathVariable("patientallergicid") Integer patientallergicid, PatientAllergyDetails patientAllergyDetails) throws Exception {
-        return patientAllergicDetailsServiceImpl.updatePatientAllergicDetails(patientallergicid, patientAllergyDetails);
+    public PatientAllergyDetails updatePatientAllergicDetails(@PathVariable("patientallergicid") Integer patientallergicid, PatientAllergyDetails patientAllergyDetails) {
+        return patientAllergicDetailsService.updatePatientAllergicDetails(patientallergicid, patientAllergyDetails);
     }
 
     @DeleteMapping("/patientallergic/{patientallergicid}")
-    private void deletePatientAllergicDetails(@PathVariable("patientallergicid") Integer patientallergicid) throws Exception {
-        patientAllergicDetailsServiceImpl.deletePatientAllergicDetails(patientallergicid);
+    public void deletePatientAllergicDetails(@PathVariable("patientallergicid") Integer patientallergicid) {
+        patientAllergicDetailsService.deletePatientAllergicDetails(patientallergicid);
     }
 }
