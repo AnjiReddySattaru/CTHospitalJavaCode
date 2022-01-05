@@ -36,4 +36,36 @@ public class AllergicDetails {
     @Column(nullable = false)
     @NotEmpty(message = "This field cannot be empty")
     private String allergyClinicalInformation;
+	public Integer getAllergyId() {
+		return allergyId;
+	}
+	public void setAllergyId(Integer allergyId) {
+		this.allergyId = allergyId;
+	}
+	public String getAllergyType() {
+		return allergyType;
+	}
+	public void setAllergyType(String allergyType) {
+		this.allergyType = allergyType;
+	}
+	public String getAllergyName() {
+		return allergyName;
+	}
+	public void setAllergyName(String allergyName) {
+		this.allergyName = allergyName;
+	}
+	public String getAllergyDescription() {
+		return allergyDescription;
+	}
+	public void setAllergyDescription(String allergyDescription) {
+		this.allergyDescription = allergyDescription;
+	}
+	public String getAllergyClinicalInformation() {
+		return allergyClinicalInformation;
+	}
+	public void setAllergyClinicalInformation(String allergyClinicalInformation) {
+		this.allergyClinicalInformation = allergyClinicalInformation;
+	}
+    
+    
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class AllergicDetailsController {
 
     @Autowired
@@ -18,6 +19,30 @@ public class AllergicDetailsController {
     @GetMapping("/allergic")
     public List<AllergicDetails> getAllAllergicDetails() {
         return allergicDetailsService.getAllAllergicDetails();
+    }
+    
+    @GetMapping("/allergicbytype/{allergytype}")
+    public List<AllergicDetails> getAllAllergicDetails(@PathVariable("allergytype") String allergytype) {
+    	
+        return allergicDetailsService.getAllergicDetailsByType(allergytype);
+    }
+    
+    @GetMapping("/allergicbyname/{allergyname}")
+    public List<AllergicDetails> getAllergicDetailsByName(@PathVariable("allergyname") String allergyname) {
+    	
+        return allergicDetailsService.getAllergicDetailsByName(allergyname);
+    }
+    
+    @GetMapping("/allergicbydescription/{allergydescription}")
+    public List<AllergicDetails> getAllergicDetailsDescription(@PathVariable("allergydescription") String allergydescription) {
+    	
+        return allergicDetailsService.getAllergicDetailsDescription(allergydescription);
+    }
+    
+    @GetMapping("/allergicbyclinicalinfo/{allergyclinicalinfo}")
+    public List<AllergicDetails> getAllergicDetailsClinicalInfo(@PathVariable("allergyclinicalinfo") String allergyclinicalinfo) {
+    	
+        return allergicDetailsService.getAllergicDetailsClinicalInfo(allergyclinicalinfo);
     }
 
     @GetMapping("/allergic/{allergicid}")

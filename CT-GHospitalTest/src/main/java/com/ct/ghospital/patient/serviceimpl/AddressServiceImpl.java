@@ -45,7 +45,7 @@ public class AddressServiceImpl implements AddressService {
             pAddress.setCountry(address.getCountry());
             pAddress.setState(address.getState());
             pAddress.setPostalCode(address.getPostalCode());
-            pAddress.setPhoneNumber(address.getPhoneNumber());
+           // pAddress.setPhoneNumber(address.getPhoneNumber());
             return addressRepo.save(pAddress);
         } catch (AddressException addressException) {
             throw new AddressException(addressException.getMessage());

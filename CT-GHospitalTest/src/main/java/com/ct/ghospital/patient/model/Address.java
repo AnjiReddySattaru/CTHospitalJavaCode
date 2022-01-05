@@ -38,6 +38,38 @@ public class Address {
     @NotEmpty(message = "Please provide the telephone number")
     @Min(value = 7, message = "Please validate the phone number. Telephone number has XX number of digits")
     @Max(value = 10, message = "Please validate the phone number. Telephone number has XX number of digits")
-    private String phoneNumber;
+   // private String phoneNumber;
+	public Integer getAddressId() {
+		return addressId;
+	}
+	public void setAddressId(Integer addressId) {
+		this.addressId = addressId;
+	}
+	public String getHomeAddress() {
+		return homeAddress;
+	}
+	public void setHomeAddress(String homeAddress) {
+		this.homeAddress = homeAddress;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getPostalCode() {
+		return postalCode;
+	}
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+	   
+    
 
 }

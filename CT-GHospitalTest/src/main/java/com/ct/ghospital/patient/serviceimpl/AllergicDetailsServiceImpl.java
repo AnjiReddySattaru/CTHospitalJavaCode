@@ -57,4 +57,28 @@ public class AllergicDetailsServiceImpl implements AllergicDetailsService {
         AllergicDetails allergicDetails = getAllergicDetails(id);
         allergicDetailsRepo.delete(allergicDetails);
     }
+
+	@Override
+	public List<AllergicDetails> getAllergicDetailsByType(String allergytype) throws AllergyDetailsException {
+		// TODO Auto-generated method stub
+		return allergicDetailsRepo.getAllergicDetailsByType(allergytype);
+	}
+
+	@Override
+	public List<AllergicDetails> getAllergicDetailsByName(String allergyname) throws AllergyDetailsException {
+		// TODO Auto-generated method stub
+		return allergicDetailsRepo.getAllergicDetailsByName(allergyname);
+	}
+
+	@Override
+	public List<AllergicDetails> getAllergicDetailsDescription(String allergydescription) throws AllergyDetailsException {
+		// TODO Auto-generated method stub
+		return allergicDetailsRepo.getAllergicDetailsByDescription(allergydescription);
+	}
+
+	@Override
+	public List<AllergicDetails> getAllergicDetailsClinicalInfo(String allergyclinicalinfo) throws AllergyDetailsException {
+		// TODO Auto-generated method stub
+		return allergicDetailsRepo.getAllergicDetailsByClinicalInfo(allergyclinicalinfo);
+	}
 }

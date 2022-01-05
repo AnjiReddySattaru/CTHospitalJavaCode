@@ -61,6 +61,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<ErrorResponse> handleVitalSignsNotFoundException(VitalSignsException vitalSignsException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(111, vitalSignsException.getMessage()));
     }
+    
+    @ExceptionHandler(PatientVisitDetailsException.class)
+    private ResponseEntity<ErrorResponse> handlePatientVisitDetailsException(PatientVisitDetailsException patientVisitDetailsException) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(111, patientVisitDetailsException.getMessage()));
+    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
