@@ -27,5 +27,29 @@ public class DiagnosisDetails {
     private String diagnosisDescription;
     @Column
     private Boolean diagnosisIsDeprecated;
-
+	public Integer getDiagnosisId() {
+		return diagnosisId;
+	}
+	public void setDiagnosisId(Integer diagnosisId) {
+		this.diagnosisId = diagnosisId;
+	}
+	public String getDiagnosisCode() {
+		return diagnosisCode;
+	}
+	public void setDiagnosisCode(String diagnosisCode) {
+		this.diagnosisCode = diagnosisCode;
+	}
+	public String getDiagnosisDescription() {
+		return diagnosisDescription;
+	}
+	public void setDiagnosisDescription(String diagnosisDescription) {
+		this.diagnosisDescription = diagnosisDescription;
+	}
+	public Boolean getDiagnosisIsDeprecated() {
+		return diagnosisIsDeprecated;
+	}
+	public void setDiagnosisIsDeprecated(Boolean diagnosisIsDeprecated) {
+		this.diagnosisIsDeprecated = diagnosisIsDeprecated;
+	}
+    
 }

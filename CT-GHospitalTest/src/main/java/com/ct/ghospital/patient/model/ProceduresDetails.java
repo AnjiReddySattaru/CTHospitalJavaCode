@@ -20,12 +20,36 @@ public class ProceduresDetails {
 
     @Id
     @Column(name = "proceduresId")
-    private String proceduresId;
+    private Integer proceduresId;
     @Column
     private String proceduresCode;
     @Column
     private String proceduresName;
     @Column
     private String proceduresIdDescription;
+	public Integer getProceduresId() {
+		return proceduresId;
+	}
+	public void setProceduresId(Integer proceduresId) {
+		this.proceduresId = proceduresId;
+	}
+	public String getProceduresCode() {
+		return proceduresCode;
+	}
+	public void setProceduresCode(String proceduresCode) {
+		this.proceduresCode = proceduresCode;
+	}
+	public String getProceduresName() {
+		return proceduresName;
+	}
+	public void setProceduresName(String proceduresName) {
+		this.proceduresName = proceduresName;
+	}
+	public String getProceduresIdDescription() {
+		return proceduresIdDescription;
+	}
+	public void setProceduresIdDescription(String proceduresIdDescription) {
+		this.proceduresIdDescription = proceduresIdDescription;
+	}
 
 }

@@ -103,7 +103,7 @@ public class PatientDetailsServiceImpl implements PatientDetailsService {
         address.setCountry(patientDetailsDTO.getPatientDetails().getAddress().getCountry());
         address.setState(patientDetailsDTO.getPatientDetails().getAddress().getState());
         address.setPostalCode(patientDetailsDTO.getPatientDetails().getAddress().getPostalCode());
-        address.setPhoneNumber(patientDetailsDTO.getPatientDetails().getAddress().getPhoneNumber());
+       // address.setPhoneNumber(patientDetailsDTO.getPatientDetails().getAddress().getPhoneNumber());
         /*Update Emergency Contact Details if any changes */
         EmergencyContact emergencyContact = patientDetails.getEmergencyContact();
         /*Getting Address Details from Emergency Contact */
@@ -112,7 +112,7 @@ public class PatientDetailsServiceImpl implements PatientDetailsService {
         eAddress.setCountry(patientDetailsDTO.getPatientDetails().getEmergencyContact().getAddress().getCountry());
         eAddress.setState(patientDetailsDTO.getPatientDetails().getEmergencyContact().getAddress().getState());
         eAddress.setPostalCode(patientDetailsDTO.getPatientDetails().getEmergencyContact().getAddress().getPostalCode());
-        eAddress.setPhoneNumber(patientDetailsDTO.getPatientDetails().getEmergencyContact().getAddress().getPhoneNumber());
+        //eAddress.setPhoneNumber(patientDetailsDTO.getPatientDetails().getEmergencyContact().getAddress().getPhoneNumber());
         emergencyContact.setFirstName(patientDetailsDTO.getPatientDetails().getEmergencyContact().getFirstName());
         emergencyContact.setLastName(patientDetailsDTO.getPatientDetails().getEmergencyContact().getLastName());
         emergencyContact.setAddress(eAddress);

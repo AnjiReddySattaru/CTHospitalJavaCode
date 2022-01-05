@@ -27,5 +27,30 @@ public class MedicationDetails {
     private String medicationName;
     @Column
     private String medicationDescription;
+	public Integer getMedicationId() {
+		return medicationId;
+	}
+	public void setMedicationId(Integer medicationId) {
+		this.medicationId = medicationId;
+	}
+	public String getMedicationCode() {
+		return medicationCode;
+	}
+	public void setMedicationCode(String medicationCode) {
+		this.medicationCode = medicationCode;
+	}
+	public String getMedicationName() {
+		return medicationName;
+	}
+	public void setMedicationName(String medicationName) {
+		this.medicationName = medicationName;
+	}
+	public String getMedicationDescription() {
+		return medicationDescription;
+	}
+	public void setMedicationDescription(String medicationDescription) {
+		this.medicationDescription = medicationDescription;
+	}
 
+    
 }

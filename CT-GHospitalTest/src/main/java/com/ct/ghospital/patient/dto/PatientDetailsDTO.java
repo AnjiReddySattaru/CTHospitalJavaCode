@@ -14,4 +14,17 @@ import java.util.List;
 public class PatientDetailsDTO {
     PatientDetails patientDetails;
     List<PatientAllergyDetails> patientAllergyDetailsList;
+	public PatientDetails getPatientDetails() {
+		return patientDetails;
+	}
+	public void setPatientDetails(PatientDetails patientDetails) {
+		this.patientDetails = patientDetails;
+	}
+	public List<PatientAllergyDetails> getPatientAllergyDetailsList() {
+		return patientAllergyDetailsList;
+	}
+	public void setPatientAllergyDetailsList(List<PatientAllergyDetails> patientAllergyDetailsList) {
+		this.patientAllergyDetailsList = patientAllergyDetailsList;
+	}
+    
 }
