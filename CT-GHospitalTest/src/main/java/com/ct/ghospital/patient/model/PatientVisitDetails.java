@@ -29,7 +29,7 @@ public class PatientVisitDetails {
 	private Integer patientVisitId;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "patientId", referencedColumnName = "patientId")
+	@JoinColumn(name = "id", referencedColumnName = "id")
 	private Patient patient;
 	
 	@OneToOne(cascade = CascadeType.ALL)

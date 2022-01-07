@@ -49,8 +49,8 @@ public class PatientVisitDetailsServiceImpl implements PatientVisitDetailsServic
 
 
 	@Override
-	public List<PatientVisitDetails> getAllVisitDetails(Integer patientId) {
-	return patientVisitDetailsRepo.findAll().stream().filter(patientVisitDetails -> patientVisitDetails.getPatient().getPatientId().equals(patientId)).collect(Collectors.toList());
+	public List<PatientVisitDetails> getAllVisitDetails(long patientId) {
+	return patientVisitDetailsRepo.findAll().stream().filter(patientVisitDetails -> patientVisitDetails.getPatient().getId()==patientId).collect(Collectors.toList());
 	}
 
 
@@ -69,7 +69,7 @@ public class PatientVisitDetailsServiceImpl implements PatientVisitDetailsServic
 
 	@Override
 	public PatientVisitDetails savePatientVisitDetails(PatientVisitDetails patientVisitDetails) {
-	patientVisitDetails.setPatient(patientService.getPatientById(patientVisitDetails.getPatient().getPatientId()));
+	patientVisitDetails.setPatient(patientService.getPatientById(patientVisitDetails.getPatient().getId()));
 	patientVisitDetails.setVitalSigns(patientVisitDetails.getVitalSigns());
 	List<DiagnosisDetails> diagnosisDetailsList = new ArrayList<>();
 	for (DiagnosisDetails d : patientVisitDetails.getDiagnosisDetails()) {

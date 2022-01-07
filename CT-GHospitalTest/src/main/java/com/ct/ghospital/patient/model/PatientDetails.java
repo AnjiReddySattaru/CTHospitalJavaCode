@@ -41,7 +41,7 @@ public class PatientDetails {
     @Min(value = 2, message = "Please don’t use abbreviations")
     private String languagesKnown;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "patient_id", referencedColumnName = "patientId")
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Patient patient;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "addressId")

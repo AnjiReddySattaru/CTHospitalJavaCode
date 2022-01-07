@@ -10,9 +10,9 @@ public interface PatientDetailsService {
 
     List<PatientDetailsDTO> getAllPatientAndAllergicDetails();
 
-    PatientDetailsDTO getPatientAndAllergicDetails(Integer patient_id);
+    PatientDetailsDTO getPatientAndAllergicDetails(long patient_id);
 
-    PatientDetailsDTO updatePatientAndAllergicDetails(Integer patient_id, PatientDetailsDTO patientDetailsDTO) throws Exception;
+    PatientDetailsDTO updatePatientAndAllergicDetails(long patient_id, PatientDetailsDTO patientDetailsDTO) throws Exception;
 
-    void deletePatientAndAllergicDetails(Integer patient_id) throws Exception;
+    void deletePatientAndAllergicDetails(long patient_id) throws Exception;
 }

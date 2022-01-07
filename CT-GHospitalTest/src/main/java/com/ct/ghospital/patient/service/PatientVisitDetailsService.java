@@ -9,7 +9,7 @@ import com.ct.ghospital.patient.model.PatientVisitDetails;
 @Service
 public interface PatientVisitDetailsService {
 
-	List<PatientVisitDetails> getAllVisitDetails(Integer patientId);
+	List<PatientVisitDetails> getAllVisitDetails(long patientId);
 
 
 

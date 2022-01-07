@@ -26,7 +26,7 @@ public class PatientAllergyDetails {
     @Column
     private Boolean fatal;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "patient_id", referencedColumnName = "patientId")
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Patient patient;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "allergyId", referencedColumnName = "allergyId")
