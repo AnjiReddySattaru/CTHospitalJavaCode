@@ -37,7 +37,7 @@ public class PatientDetailsServiceImpl implements PatientDetailsService {
         PatientDetails pPatinetDetails = patientDetailsDTO.getPatientDetails();
         Patient patient = null;
         try {
-            patient = patientService.getPatientById(pPatinetDetails.getPatient().getPatientId());
+            patient = patientService.getPatientById(pPatinetDetails.getPatient().getId());
             pPatinetDetails.setPatient(patient);
         } catch (PatientDetailsExceptions ex) {
             throw new PatientDetailsExceptions("Patient is not present to save details");
@@ -62,17 +62,17 @@ public class PatientDetailsServiceImpl implements PatientDetailsService {
         patientDetailsRepo.findAll().forEach(patientDetails -> {
             PatientDetailsDTO patientDetailsDTO = new PatientDetailsDTO();
             patientDetailsDTO.setPatientDetails(patientDetails);
-            patientDetailsDTO.setPatientAllergyDetailsList(patientAllergicDetailsRepo.findByPatientPatientId(patientDetails.getPatient().getPatientId()));
+            patientDetailsDTO.setPatientAllergyDetailsList(patientAllergicDetailsRepo.findByPatientId(patientDetails.getPatient().getId()));
             patientDetailsDTOList.add(patientDetailsDTO);
         });
         return patientDetailsDTOList;
     }
 
     @Override
-    public PatientDetailsDTO getPatientAndAllergicDetails(Integer patientId) {
+    public PatientDetailsDTO getPatientAndAllergicDetails(long patientId) {
         PatientDetailsDTO patientDetailsDTO = new PatientDetailsDTO();
-        patientDetailsDTO.setPatientDetails(patientDetailsRepo.findByPatientPatientId(patientId));
-        patientDetailsDTO.setPatientAllergyDetailsList(patientAllergicDetailsRepo.findByPatientPatientId(patientId));
+        patientDetailsDTO.setPatientDetails(patientDetailsRepo.findByPatientId(patientId));
+        patientDetailsDTO.setPatientAllergyDetailsList(patientAllergicDetailsRepo.findByPatientId(patientId));
         return patientDetailsDTO;
     }
 
@@ -87,15 +87,15 @@ public class PatientDetailsServiceImpl implements PatientDetailsService {
         return patientDetailsDTO1;
     }*/
     @Override
-    public PatientDetailsDTO updatePatientAndAllergicDetails(Integer patient_id, PatientDetailsDTO patientDetailsDTO) {
-        PatientDetails patientDetails=patientDetailsRepo.findByPatientPatientId(patient_id);
+    public PatientDetailsDTO updatePatientAndAllergicDetails(long patient_id, PatientDetailsDTO patientDetailsDTO) {
+        PatientDetails patientDetails=patientDetailsRepo.findByPatientId(patient_id);
         /*Updating Patient Details if any changes*/
         Patient patient = patientDetails.getPatient();
         patient.setTitle(patientDetailsDTO.getPatientDetails().getPatient().getTitle());
         patient.setFirstName(patientDetailsDTO.getPatientDetails().getPatient().getFirstName());
         patient.setLastName(patientDetailsDTO.getPatientDetails().getPatient().getLastName());
-        patient.setDateOfBirth(patientDetailsDTO.getPatientDetails().getPatient().getDateOfBirth());
-        patient.setMailId(patientDetailsDTO.getPatientDetails().getPatient().getMailId());
+        patient.setDob(patientDetailsDTO.getPatientDetails().getPatient().getDob());
+        patient.setEmailId(patientDetailsDTO.getPatientDetails().getPatient().getEmailId());
         patient.setContactNumber(patientDetailsDTO.getPatientDetails().getPatient().getContactNumber());
         /*Updating Address Details if any changes */
         Address address = patientDetails.getAddress();
@@ -146,11 +146,11 @@ public class PatientDetailsServiceImpl implements PatientDetailsService {
     }
 
     @Override
-    public void deletePatientAndAllergicDetails(Integer patient_id) {
+    public void deletePatientAndAllergicDetails(long patient_id) {
         try {
             patientService.getPatientById(patient_id);
-            patientDetailsRepo.delete(patientDetailsRepo.findByPatientPatientId(patient_id));
-            patientAllergicDetailsRepo.deleteAll(patientAllergicDetailsRepo.findByPatientPatientId(patient_id));
+            patientDetailsRepo.delete(patientDetailsRepo.findByPatientId(patient_id));
+            patientAllergicDetailsRepo.deleteAll(patientAllergicDetailsRepo.findByPatientId(patient_id));
         } catch (PatientDetailsExceptions ex) {
             throw new PatientExceptions("Patient With Id " + patient_id + " is not Present to Delete");
         }

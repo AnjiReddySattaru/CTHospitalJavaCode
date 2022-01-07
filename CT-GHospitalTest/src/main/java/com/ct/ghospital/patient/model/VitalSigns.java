@@ -34,7 +34,7 @@ public class VitalSigns {
 	private Date visitDate;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="patientId",referencedColumnName = "patientId")
+	@JoinColumn(name="id",referencedColumnName = "id")
 	private Patient patient;
 	
 	public Integer getVitalSignsId() {
