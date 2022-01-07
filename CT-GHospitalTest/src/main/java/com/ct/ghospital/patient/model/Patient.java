@@ -59,7 +59,7 @@ public class Patient {
 	@Column(name="contactNumber",nullable = false)
 	private long contactNumber;
 	
-	@Column(name="password",nullable = false, length = 50)
+	@Column(name="password",nullable = false, length = 100)
 	private String password;
 	
 	@Column(name="status",insertable = false, columnDefinition = "varchar(1) default 'I'")
