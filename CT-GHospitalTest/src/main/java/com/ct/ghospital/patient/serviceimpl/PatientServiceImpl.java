@@ -70,7 +70,7 @@ public class PatientServiceImpl implements PatientService {
 			{
 					try
 					{
-						patientRegistartionBean.setFirstLogin(50);//workaround
+						patientRegistartionBean.setFirstLogin(100);//workaround
 						
 						patientRepository.save(patientRegistartionBean);
 					}catch(Exception e)
