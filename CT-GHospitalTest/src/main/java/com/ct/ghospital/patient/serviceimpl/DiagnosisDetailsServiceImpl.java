@@ -1,6 +1,7 @@
 package com.ct.ghospital.patient.serviceimpl;
 
 import com.ct.ghospital.patient.exception.DiagnosisDetailsException;
+import com.ct.ghospital.patient.exception.VitalSignsException;
 import com.ct.ghospital.patient.model.DiagnosisDetails;
 import com.ct.ghospital.patient.repo.DiagnosisDetailsRepo;
 import com.ct.ghospital.patient.service.DiagnosisDetailsService;
@@ -14,45 +15,56 @@ import java.util.Optional;
 @Service
 public class DiagnosisDetailsServiceImpl implements DiagnosisDetailsService {
 
-    @Autowired
-    DiagnosisDetailsRepo diagnosisDetailsRepo;
+	@Autowired
+	DiagnosisDetailsRepo diagnosisDetailsRepo;
 
-    @Override
-    public List<DiagnosisDetails> getAllDiagnosisDetails() {
-        return new ArrayList<>(diagnosisDetailsRepo.findAll());
-    }
+	@Override
+	public List<DiagnosisDetails> getAllDiagnosisDetails() {
+		return new ArrayList<>(diagnosisDetailsRepo.findAll());
+	}
 
-    @Override
-    public DiagnosisDetails getDiagnosisDetails(Integer diagnosisid) throws DiagnosisDetailsException {
-        Optional<DiagnosisDetails> diagnosisDetailsOptional = diagnosisDetailsRepo.findById(diagnosisid);
-        if (diagnosisDetailsOptional.isPresent()) {
-            return diagnosisDetailsOptional.get();
-        } else {
-            throw new DiagnosisDetailsException("Diagnosis With Id " + diagnosisid + " not Present");
-        }
-    }
+	@Override
+	public DiagnosisDetails getDiagnosisDetails(Integer diagnosisid) throws DiagnosisDetailsException {
+		Optional<DiagnosisDetails> diagnosisDetailsOptional = diagnosisDetailsRepo.findById(diagnosisid);
+		if (diagnosisDetailsOptional.isPresent()) {
+			return diagnosisDetailsOptional.get();
+		} else {
+			throw new DiagnosisDetailsException("Diagnosis With Id " + diagnosisid + " not Present");
+		}
+	}
 
-    @Override
-    public DiagnosisDetails saveDiagnosisDetails(DiagnosisDetails diagnosisDetails) {
-        return diagnosisDetailsRepo.save(diagnosisDetails);
-    }
+	@Override
+	public DiagnosisDetails saveDiagnosisDetails(DiagnosisDetails diagnosisDetails) {
+		return diagnosisDetailsRepo.save(diagnosisDetails);
+	}
 
-    @Override
-    public DiagnosisDetails updateDiagnosisDetails(Integer diagnosisid, DiagnosisDetails diagnosisDetails) {
-        try {
-            DiagnosisDetails pDiagnosisDetails = getDiagnosisDetails(diagnosisid);
-            pDiagnosisDetails.setDiagnosisIsDeprecated(diagnosisDetails.getDiagnosisIsDeprecated());
-            pDiagnosisDetails.setDiagnosisCode(diagnosisDetails.getDiagnosisCode());
-            pDiagnosisDetails.setDiagnosisDescription(diagnosisDetails.getDiagnosisDescription());
-            return diagnosisDetailsRepo.save(pDiagnosisDetails);
-        } catch (DiagnosisDetailsException ex) {
-            throw new DiagnosisDetailsException(ex.getMessage());
-        }
-    }
+	@Override
+	public DiagnosisDetails updateDiagnosisDetails(Integer diagnosisid, DiagnosisDetails diagnosisDetails) {
+		try {
+			DiagnosisDetails pDiagnosisDetails = getDiagnosisDetails(diagnosisid);
+			pDiagnosisDetails.setDiagnosisIsDeprecated(diagnosisDetails.getDiagnosisIsDeprecated());
+			pDiagnosisDetails.setDiagnosisCode(diagnosisDetails.getDiagnosisCode());
+			pDiagnosisDetails.setDiagnosisDescription(diagnosisDetails.getDiagnosisDescription());
+			return diagnosisDetailsRepo.save(pDiagnosisDetails);
+		} catch (DiagnosisDetailsException ex) {
+			throw new DiagnosisDetailsException(ex.getMessage());
+		}
+	}
 
-    @Override
-    public void deleteDiagnosisDetails(Integer diagnosisid) {
-        DiagnosisDetails diagnosisDetails = getDiagnosisDetails(diagnosisid);
-        diagnosisDetailsRepo.delete(diagnosisDetails);
-    }
+	@Override
+	public void deleteDiagnosisDetails(Integer diagnosisid) {
+		DiagnosisDetails diagnosisDetails = getDiagnosisDetails(diagnosisid);
+		diagnosisDetailsRepo.delete(diagnosisDetails);
+	}
+
+	@Override
+	public DiagnosisDetails getDiagnosisbycode(String diagnosiscode) {
+		Optional<DiagnosisDetails> disgnosiscodeOptional = Optional.ofNullable(diagnosisDetailsRepo.findByDiagnosisCode(diagnosiscode));
+		if (disgnosiscodeOptional.isPresent()) {
+			return disgnosiscodeOptional.get();
+		} else {
+			throw new DiagnosisDetailsException("Diagnosis Code is not present");
+		}
+		
+	}
 }

@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @AllArgsConstructor
@@ -18,15 +19,18 @@ import javax.persistence.Table;
 @Table(name = "diagnosis")
 public class DiagnosisDetails {
 
-    @Id
-    @Column(name = "diagnosisId")
-    private Integer diagnosisId;
-    @Column
-    private String diagnosisCode;
-    @Column
-    private String diagnosisDescription;
-    @Column
-    private Boolean diagnosisIsDeprecated;
+	@Id
+	@Column(name = "diagnosisId")
+	private Integer diagnosisId;
+	@Column(name = "diagnosis_code")
+	@NotEmpty(message = "This field cannot be empty")
+	private String diagnosisCode;
+	@Column(name = "diagnosis_description")
+	@NotEmpty(message = "This field cannot be empty")
+	private String diagnosisDescription;
+	@Column(name = "diagnosis_is_deprecated")
+	@NotEmpty(message = "This field cannot be empty")
+	private Boolean diagnosisIsDeprecated;
 	public Integer getDiagnosisId() {
 		return diagnosisId;
 	}
@@ -51,5 +55,6 @@ public class DiagnosisDetails {
 	public void setDiagnosisIsDeprecated(Boolean diagnosisIsDeprecated) {
 		this.diagnosisIsDeprecated = diagnosisIsDeprecated;
 	}
-    
+
+	
 }

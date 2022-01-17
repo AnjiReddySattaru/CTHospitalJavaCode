@@ -65,7 +65,7 @@ public class Patient {
 	@Column(name="status",insertable = false, columnDefinition = "varchar(1) default 'U'")
 	private char status;
 	
-	@Column(name = "firstLogin", nullable = false, columnDefinition = "INTEGER DEFAULT 50")
+	@Column(name = "firstLogin", nullable = false, columnDefinition = "INTEGER DEFAULT 100")
 	//@ColumnDefault(value = "50")
 	private int firstLogin ;
 	
@@ -88,6 +88,156 @@ public class Patient {
 	
 	@Column(name="updateddate",insertable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date updateddate;
+
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
+
+	public LocalDate getDob() {
+		return dob;
+	}
+
+
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
+	}
+
+
+	public long getContactNumber() {
+		return contactNumber;
+	}
+
+
+	public void setContactNumber(long contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public char getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(char status) {
+		this.status = status;
+	}
+
+
+	public int getFirstLogin() {
+		return firstLogin;
+	}
+
+
+	public void setFirstLogin(int firstLogin) {
+		this.firstLogin = firstLogin;
+	}
+
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+
+	public int getInvalidLoginAttempt() {
+		return invalidLoginAttempt;
+	}
+
+
+	public void setInvalidLoginAttempt(int invalidLoginAttempt) {
+		this.invalidLoginAttempt = invalidLoginAttempt;
+	}
+
+
+	public long getUpdatedById() {
+		return updatedById;
+	}
+
+
+	public void setUpdatedById(long updatedById) {
+		this.updatedById = updatedById;
+	}
+
+
+	public Date getCreateddate() {
+		return createddate;
+	}
+
+
+	public void setCreateddate(Date createddate) {
+		this.createddate = createddate;
+	}
+
+
+	public Date getUpdateddate() {
+		return updateddate;
+	}
+
+
+	public void setUpdateddate(Date updateddate) {
+		this.updateddate = updateddate;
+	}
 	
 	
 

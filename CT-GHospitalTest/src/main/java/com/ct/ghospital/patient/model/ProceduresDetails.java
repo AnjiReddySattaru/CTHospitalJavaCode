@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @AllArgsConstructor
@@ -18,15 +19,19 @@ import javax.persistence.Table;
 @Table(name = "proceduresdetails")
 public class ProceduresDetails {
 
-    @Id
-    @Column(name = "proceduresId")
-    private Integer proceduresId;
-    @Column
-    private String proceduresCode;
-    @Column
-    private String proceduresName;
-    @Column
-    private String proceduresIdDescription;
+	@Id
+	@Column(name = "proceduresid")
+	@NotEmpty(message = "This field cannot be empty")
+	private Integer proceduresId;
+	@Column(name = "procedures_code")
+	@NotEmpty(message = "This field cannot be empty")
+	private String proceduresCode;
+	@Column(name = "procedures_name")
+	@NotEmpty(message = "This field cannot be empty")
+	private String proceduresName;
+	@Column(name = "procedure_is_depricated")
+	@NotEmpty(message = "This field cannot be empty")
+	private Boolean procedureIsDepricated;
 	public Integer getProceduresId() {
 		return proceduresId;
 	}
@@ -45,11 +50,11 @@ public class ProceduresDetails {
 	public void setProceduresName(String proceduresName) {
 		this.proceduresName = proceduresName;
 	}
-	public String getProceduresIdDescription() {
-		return proceduresIdDescription;
+	public Boolean getProcedureIsDepricated() {
+		return procedureIsDepricated;
 	}
-	public void setProceduresIdDescription(String proceduresIdDescription) {
-		this.proceduresIdDescription = proceduresIdDescription;
+	public void setProcedureIsDepricated(Boolean procedureIsDepricated) {
+		this.procedureIsDepricated = procedureIsDepricated;
 	}
 
 }
