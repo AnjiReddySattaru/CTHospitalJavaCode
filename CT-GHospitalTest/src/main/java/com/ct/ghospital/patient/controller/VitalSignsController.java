@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http:localhost:4200")
+@CrossOrigin
 public class VitalSignsController {
 
     @Autowired
@@ -21,10 +21,10 @@ public class VitalSignsController {
         return vitalSignsService.getAllVitalSignsDetails();
     }
 
-    @GetMapping("/vitalsigns/{vitalsignsid}")
-    public ResponseEntity<VitalSigns> getVitalSigns(@PathVariable("vitalsignsid") Integer vitalsignsid) {
+    @GetMapping("/vitalsigns/{patientId}")
+    public ResponseEntity<VitalSigns> getVitalSigns(@PathVariable("patientId") long patientId) {
         try {
-            return ResponseEntity.ok(vitalSignsService.getVitalSignsDetails(vitalsignsid));
+            return ResponseEntity.ok(vitalSignsService.getVitalSignsDetails(patientId));
         } catch (VitalSignsException ex) {
             throw new VitalSignsException(ex.getMessage());
         }
@@ -35,13 +35,13 @@ public class VitalSignsController {
         return vitalSignsService.saveVitalSignsDetails(vitalsigns);
     }
 
-    @PutMapping("/vitalsigns/{vitalsignsid}")
-    public VitalSigns updateVitalSigns(@PathVariable("vitalsignsid") Integer vitalsignsid, @RequestBody VitalSigns vitalSigns) {
-        return vitalSignsService.updateVitalSignsDetails(vitalsignsid, vitalSigns);
+    @PutMapping("/vitalsigns/{patientId}")
+    public VitalSigns updateVitalSigns(@PathVariable("patientId") long patientId, @RequestBody VitalSigns vitalSigns) {
+        return vitalSignsService.updateVitalSignsDetails(patientId, vitalSigns);
     }
 
     @DeleteMapping("/vitalsigns/{vitalsignsid}")
-    public void deleteVitalSigns(@PathVariable("vitalsignsid") Integer vitalsignsid) {
+    public void deleteVitalSigns(@PathVariable("vitalsignsid") long vitalsignsid) {
         vitalSignsService.deleteVitalSigns(vitalsignsid);
     }
 }
