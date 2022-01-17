@@ -59,10 +59,10 @@ public class Patient {
 	@Column(name="contactNumber",nullable = false)
 	private long contactNumber;
 	
-	@Column(name="password",nullable = false, length = 50)
+	@Column(name="password",nullable = false, length = 100)
 	private String password;
 	
-	@Column(name="status",insertable = false, columnDefinition = "varchar(1) default 'I'")
+	@Column(name="status",insertable = false, columnDefinition = "varchar(1) default 'U'")
 	private char status;
 	
 	@Column(name = "firstLogin", nullable = false, columnDefinition = "INTEGER DEFAULT 100")
@@ -75,11 +75,11 @@ public class Patient {
 	
 	
 	
-	@Column(name="invalidLoginAttempt",insertable = false)
+	@Column(name="invalidLoginAttempt",insertable = false )
 	@ColumnDefault(value = "0")
 	private int invalidLoginAttempt;
 	
-	@Column(name="updatedById",insertable = true)
+	@Column(name="updatedById",insertable = false,columnDefinition = "INTEGER DEFAULT 0")
 	private long updatedById;
 	
 	@Column(name="createddate",insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
