@@ -70,20 +70,22 @@ public class PatientServiceImpl implements PatientService {
 
 		// System.out.println(repo.findAll());
 		if (!checkEmailExist(patientRegistartionBean.getEmailId())) {
-			if (patientRegistartionBean.getPassword().equals(patientRegistartionBean.getConfirmPassword()))
+			if (patientRegistartionBean.getPassword().equals(patientRegistartionBean.getConfirmPassword())){
 
+					try
+					{
+						patientRegistartionBean.setFirstLogin(100);//workaround
+						
+						patientRepository.save(patientRegistartionBean);
+					}catch(Exception e)
+					{
+						return ServiceResponse.Error;
+					}
+					
+					return ServiceResponse.RegistrationSuccess;
+				
+			}else
 			{
-				try {
-					patientRegistartionBean.setFirstLogin(50);// workaround
-
-					patientRepository.save(patientRegistartionBean);
-				} catch (Exception e) {
-					return ServiceResponse.Error;
-				}
-
-				return ServiceResponse.RegistrationSuccess;
-
-			} else {
 				return ServiceResponse.passwordNotMatched;
 			}
 
