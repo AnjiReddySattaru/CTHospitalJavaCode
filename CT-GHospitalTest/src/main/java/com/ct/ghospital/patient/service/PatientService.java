@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface PatientService {
     List<Patient> getAllPatient();
+    List<Patient> getAllActivePatient(); 
     Patient getPatientById(long patientId) throws PatientExceptions;
     Patient saveOrUpdate(Patient patient);
     Patient update(Integer patientid, Patient patients) throws PatientExceptions;
