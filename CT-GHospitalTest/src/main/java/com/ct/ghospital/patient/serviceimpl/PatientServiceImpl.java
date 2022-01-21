@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.keycloak.representations.AccessTokenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.ct.ghospital.configuration.AuthService;
 import com.ct.ghospital.patient.dto.PatientDashboardDTO;
 import com.ct.ghospital.patient.exception.PatientExceptions;
+import com.ct.ghospital.patient.exception.StatusCheckException;
+import com.ct.ghospital.patient.exception.UnauthorizedcheckException;
+import com.ct.ghospital.patient.exception.UserNotFoundException;
+import com.ct.ghospital.patient.exception.WrongCrendentials;
 import com.ct.ghospital.patient.model.Patient;
 import com.ct.ghospital.patient.repo.PatientRepository;
 import com.ct.ghospital.patient.service.PatientService;
@@ -19,6 +25,9 @@ import com.ct.ghospital.patient.service.ServiceResponse;
 public class PatientServiceImpl implements PatientService {
 	@Autowired
 	private PatientRepository patientRepository;
+	
+	@Autowired
+	private AuthService authservice;
 
 	@Override
 	public List<Patient> getAllPatient() {
@@ -77,6 +86,7 @@ public class PatientServiceImpl implements PatientService {
 						patientRegistartionBean.setFirstLogin(100);//workaround
 						
 						patientRepository.save(patientRegistartionBean);
+						authservice.registerUser(patientRegistartionBean.getEmailId(),patientRegistartionBean.getPassword(),patientRegistartionBean.getFirstName(),patientRegistartionBean.getLastName());
 					}catch(Exception e)
 					{
 						return ServiceResponse.Error;
@@ -102,16 +112,64 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	public Patient checkLogin(String emailId, String password) {
-		Patient p = patientRepository.findByEmailId(emailId);
-		System.out.println("this is employee" + p);
-		if (p != null) {
-			if (p.getPassword().equals(password)) {
-				return p;
+		String token = getToken(emailId, password);
+		
+//		Patient p = patientRepository.findByEmailId(emailId);
+//		System.out.println("this is employee" + p);
+//		if (p != null) {
+//			if (p.getPassword().equals(password)) {
+//				return p;
+//			} else
+//				return null;
+//		} else
+//			return null;
+		
+		if (token != null) {
+			System.out.println(token);
+			Patient p = patientRepository.findByEmailId(emailId);
+			System.out.println("this is employee" + p);
+			if (p != null) {
+				if (p.getPassword().equals(password)) {
+					if (p.getStatus() == 'A')
+						return p;
+					else
+						throw new StatusCheckException();
+				} else
+					throw new WrongCrendentials();
 			} else
-				return null;
-		} else
-			return null;
+				throw new UserNotFoundException();
+		} else {
+			throw new UnauthorizedcheckException();
+		}
+		
+		
+		
+		
 
+	}
+	
+	public String getToken(String username, String password) {
+		try
+		{
+			return authservice.getUser(username, password).getToken();
+		}catch(Exception e)
+		{
+			throw new UserNotFoundException();
+			
+		}
+	
+	}
+	
+	public AccessTokenResponse getTokenObject(String username, String password) {
+		try
+		{
+			return authservice.getUser(username, password);
+		}catch(Exception e)
+		{
+			throw new UserNotFoundException();
+			
+		}
+	
 	}
 
 	public List<PatientDashboardDTO> employeeListbyStatus(char status) {
