@@ -1,5 +1,6 @@
 package com.ct.ghospital.patient.controller;
 
+import org.keycloak.representations.AccessTokenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ct.ghospital.patient.dto.LoginDto;
 import com.ct.ghospital.patient.model.Patient;
 import com.ct.ghospital.patient.service.PatientService;
 
@@ -32,4 +34,16 @@ public class PatientLogin {
 	}
 	
 
+
+	@PostMapping("/token")
+	public String getToken(@RequestBody LoginDto loginDto) {
+		return serviceimpl.getToken(loginDto.getUsername(), loginDto.getPassword());
+	
+	}
+	
+	@PostMapping("/tokenobject")
+	public AccessTokenResponse getTokenObject(@RequestBody LoginDto loginDto) {
+		return serviceimpl.getTokenObject(loginDto.getUsername(), loginDto.getPassword());
+	
+	}
 }
