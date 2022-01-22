@@ -30,4 +30,11 @@ PatientVisitDetails updateVisitDetails(Integer patientVisitId, PatientVisitDetai
 
 
 void deleteVisitDetails(Integer patientVisitId) throws PatientVisitDetailsException;
+
+
+List<PatientVisitDetails> getAllPatientVisit();
+
+
+PatientVisitDetails getvisitappointment(long patientId, long appointmentId);
+
 }

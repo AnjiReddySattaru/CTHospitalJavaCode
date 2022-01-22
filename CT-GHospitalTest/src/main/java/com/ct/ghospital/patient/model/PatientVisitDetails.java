@@ -39,6 +39,15 @@ public class PatientVisitDetails {
 	private List<MedicationDetails> medicationDetails;
 	@Column
 	private Status status = Status.A;
+	@Column(name = "appointmentId")
+	private long appointmentId;
+	
+	public long getAppointmentId() {
+		return appointmentId;
+	}
+	public void setAppointmentId(Integer appointmentId) {
+		this.appointmentId = appointmentId;
+	}
 	public Integer getPatientVisitId() {
 		return patientVisitId;
 	}
