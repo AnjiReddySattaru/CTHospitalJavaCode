@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+
 public class PatientVisitDetailsController {
 
 	@Autowired
@@ -22,6 +23,17 @@ public class PatientVisitDetailsController {
 	@GetMapping("/patientvisit/findall/{patientId}")
 	public List<PatientVisitDetails> getAllVisitDetails(@PathVariable("patientId") long patientId) {
 		return patientVisitDetailsService.getAllVisitDetails(patientId);
+	}
+	
+	@GetMapping("patientvisit/visitbyappointment/{patientId}/{appointmentId}")
+	public PatientVisitDetails getvisitbyappointment(@PathVariable("patientId") long patientId,@PathVariable("appointmentId") long appointmentId){
+		return patientVisitDetailsService.getvisitappointment(patientId,appointmentId);
+	}
+	
+	
+	@GetMapping("/patientvisit/getall")
+	public List<PatientVisitDetails> getAllPatientVisit(){
+		return patientVisitDetailsService.getAllPatientVisit();
 	}
 
 	@GetMapping("/patientvisit/{patientVisitId}")

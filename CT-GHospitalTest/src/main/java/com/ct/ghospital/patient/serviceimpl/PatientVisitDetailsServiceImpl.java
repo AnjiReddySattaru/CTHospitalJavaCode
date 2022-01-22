@@ -133,4 +133,22 @@ public class PatientVisitDetailsServiceImpl implements PatientVisitDetailsServic
 		PatientVisitDetails patientVisitDetails = getVisitDetails(patientVisitId);
 		patientVisitDetailsRepo.delete(patientVisitDetails);
 	}
+
+	@Override
+	public List<PatientVisitDetails> getAllPatientVisit() {
+		// TODO Auto-generated method stub
+		return patientVisitDetailsRepo.findAll();
+		
+	}
+
+	@Override
+	public PatientVisitDetails getvisitappointment(long patientId, long appointmentId) {
+		// TODO Auto-generated method stub
+		Optional<PatientVisitDetails> patientVisitDetailsOptional = patientVisitDetailsRepo.findByPatientIdAndAppointmentId(patientId,appointmentId);
+		if (patientVisitDetailsOptional.isPresent()) {
+			return patientVisitDetailsOptional.get();
+		} else {
+			throw new PatientVisitDetailsException("Visit Details with Id " + patientId + " is not present");
+		}
+	}
 }
