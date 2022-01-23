@@ -234,5 +234,13 @@ public class PatientServiceImpl implements PatientService {
 			return false;
 	}
 
+	public List<Object[]>  countByStatus(){
+//		HashMap<Character,Integer> map = new HashMap<>();
+//				map = employeerepository.countEmployee();
+//				map.entrySet().forEach(entry -> {
+//				    System.out.println(entry.getKey() + " " + entry.getValue());
+//				}); 
+				return patientRepository.countPatient();
+	}
 
 }

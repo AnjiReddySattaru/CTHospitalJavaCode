@@ -28,4 +28,6 @@ public interface PatientService {
 	public String getToken(String username, String password);
 	
 	public AccessTokenResponse getTokenObject(String username, String password);
+	
+	public List<Object[]> countByStatus();
 }
