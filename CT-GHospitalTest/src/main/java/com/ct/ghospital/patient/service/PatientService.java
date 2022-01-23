@@ -7,6 +7,8 @@ import com.ct.ghospital.patient.model.Patient;
 import java.util.List;
 import java.util.Optional;
 
+import org.keycloak.representations.AccessTokenResponse;
+
 public interface PatientService {
     List<Patient> getAllPatient();
     Patient getPatientById(long patientId) throws PatientExceptions;
@@ -22,4 +24,10 @@ public interface PatientService {
 	public Boolean updatePatientStatus(long l, char status);
 	
 	public Boolean resetPatientPassword(long employeeId);
+	
+	public String getToken(String username, String password);
+	
+	public AccessTokenResponse getTokenObject(String username, String password);
+	
+	public List<Object[]> countByStatus();
 }

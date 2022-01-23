@@ -80,7 +80,7 @@ public class PatientController {
 
 	}
 
-	@PatchMapping("/	")
+	@PatchMapping("/resetPassword")
 	public ResponseEntity<Boolean> resetEmployeePassword(@RequestBody Patient patient) {
 		System.out.println("in update employee reset controller");
 		System.out.println(patient);
@@ -91,4 +91,11 @@ public class PatientController {
 
 	}
 
+	@GetMapping("/patientCountByStatus")
+	public ResponseEntity<List<Object[]> > employeeCountByStatus(){
+		
+//		employeeservice.countByStatus().forEach(System.out::println);
+				return new ResponseEntity<>( patientService.countByStatus(), HttpStatus.OK);
+	
+	}
 }
