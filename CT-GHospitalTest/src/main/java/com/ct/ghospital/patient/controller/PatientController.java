@@ -25,6 +25,13 @@ public class PatientController {
 	public List<Patient> getAllPatient() {
 		return patientService.getAllPatient();
 	}
+	
+	@GetMapping("/activePatient")
+	public List<Patient> getAllActivePatient() {
+		return patientService.getAllActivePatient();
+	}
+	
+	
 
 	@GetMapping("/patient/{patientid}")
 	public ResponseEntity<Patient> getPatientById(@PathVariable("patientid") Integer patientid) {

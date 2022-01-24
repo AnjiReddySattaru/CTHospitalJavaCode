@@ -25,6 +25,10 @@ public interface PatientRepository extends JpaRepository<Patient, Long>{
 	@Transactional
  	@Query("from patient where status =:statuscheck ")
 	List<Patient> patientByStatusList(@Param("statuscheck") char statuscheck);
+	
+	@Query("Select p from  patient p where p.status = 'A' ")
+	public List<Patient> getAllActivePatientList();
+
 
 	
 	@Transactional
