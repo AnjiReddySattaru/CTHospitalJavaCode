@@ -16,9 +16,16 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>2020.0.5</spring-cloud.version>
+		<keycloak.version>8.0.2</keycloak.version>
+        <resteasy.version>3.9.1.Final</resteasy.version>
 	</properties>
 	<dependencies>
-	<dependency>
+	 <dependency>
+            <artifactId>keycloak-admin-client</artifactId>
+            <groupId>org.keycloak</groupId>
+            <version>${keycloak.version}</version>
+        </dependency>
+		<dependency>
 		 		 <groupId>org.springframework.cloud</groupId>
 		 		 <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>

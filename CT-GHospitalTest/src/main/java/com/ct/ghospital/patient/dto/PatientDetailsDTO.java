@@ -1,12 +1,13 @@
 package com.ct.ghospital.patient.dto;
 
+import java.util.List;
+
 import com.ct.ghospital.patient.model.PatientAllergyDetails;
 import com.ct.ghospital.patient.model.PatientDetails;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @AllArgsConstructor

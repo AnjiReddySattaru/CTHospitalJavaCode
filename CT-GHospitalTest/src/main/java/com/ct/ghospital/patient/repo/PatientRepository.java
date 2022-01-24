@@ -30,4 +30,8 @@ public interface PatientRepository extends JpaRepository<Patient, Long>{
 	public List<Patient> getAllActivePatientList();
 
 
+	
+	@Transactional
+	@Query("Select status,count(id) from patient group by status ORDER BY status" )
+	List<Object[]> countPatient();
 }
