@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -20,6 +22,7 @@ import javax.validation.constraints.NotEmpty;
 public class DiagnosisDetails {
 
 	@Id
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "diagnosisId")
 	private Integer diagnosisId;
 	@Column(name = "diagnosis_code")

@@ -27,7 +27,7 @@ public class PatientDetails {
     @Column(nullable = false, length = 6)
     private String gender;
     @Column(nullable = false)
-    private Integer age;
+    private String age;
     @Column(nullable = false)
     @NotBlank(message = "Race field cannot be empty.")
     @Min(value = 2, message = "Please don’t use abbreviations")
@@ -61,10 +61,10 @@ public class PatientDetails {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public Integer getAge() {
+	public String getAge() {
 		return age;
 	}
-	public void setAge(Integer age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 	public String getRace() {
